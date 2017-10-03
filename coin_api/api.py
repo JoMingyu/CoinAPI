@@ -13,6 +13,9 @@ class CoinAPI:
         # soup = BeautifulSoup(resp, 'html.parser')
         # stat count 부분 selenium으로 처리해야 함
 
+    def change_currency_unit(self, currency_unit):
+        self._tag = currency_unit if currency_unit.upper() != 'USD' else ''
+
     def get_by_page(self, page=1):
         target_url = ''
 
@@ -43,6 +46,14 @@ class CoinAPI:
             coins.append(coin_dict)
 
         return coins
+
+    def get_by_marketcap_rank(self, rank):
+        # page = rank / 100 + 1
+        pass
+
+    def get_by_name(self, name):
+        pass
+
 
 if __name__ == '__main__':
     CoinAPI().get_by_page(1)
