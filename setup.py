@@ -7,4 +7,5 @@ setup(name='coin-api',
       author='PlanB',
       author_email='city7310@naver.com',
       description='Coins(Digital Currencies) market price API',
+      packages=['coin_api'],
       install_requires=['bs4'])
