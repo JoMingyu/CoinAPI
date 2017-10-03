@@ -17,20 +17,19 @@ class CoinAPI:
         self._tag = currency_unit if currency_unit.upper() != 'USD' else ''
 
     def get_by_page(self, page=1):
-        target_url = ''
-
-        if page == 1:
-            target_url = self._base_url.format('', self._tag)
-        else:
-            target_url = self._base_url.format(page, self._tag)
+        target_url = self._base_url.format('', self._tag) if page == 1 else self._base_url.format(page, self._tag)
 
         resp = urlopen(target_url)
         soup = BeautifulSoup(resp, 'html.parser')
 
         # Parsing
         coin_table = soup.find(class_='table', id='currencies').tbody
+        # Table
+
         coins = list()
+        # Coin list to return
         for coin_item in coin_table.find_all('tr'):
+            # Find items
             coin_td = coin_item.find_all('td')
             coin_dict = dict()
 
