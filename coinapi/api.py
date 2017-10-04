@@ -51,8 +51,12 @@ class CoinAPI:
         return [item for item in self.get_by_page(page) if item['rank'] == rank][0]
 
     def get_by_name(self, name):
-        pass
+        for page in range(1, 12):
+            items = self.get_by_page(page)
+            for item in items:
+                if item['name'].upper() == name.upper():
+                    return item
 
 
 if __name__ == '__main__':
-    print(CoinAPI().get_by_marketcap_rank(103))
+    print(CoinAPI().get_by_name('gambit'))
