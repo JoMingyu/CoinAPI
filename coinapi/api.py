@@ -14,9 +14,27 @@ class CoinAPI:
         # stat count 부분 selenium으로 처리해야 함
 
     def change_currency_unit(self, currency_unit):
+        """
+        Changes currency unit
+
+        :param currency_unit: Currency unit to change ex) USD, KRW, BTC, ...
+        :type currency_unit: str
+
+        :return: None
+        :rtype: None
+        """
         self._tag = currency_unit if currency_unit.upper() != 'USD' else ''
 
     def get_by_page(self, page=1):
+        """
+        Returns coin data based page. 100 coins per page.
+
+        :param page: Page to inquire
+        :type page: int
+
+        :return: Coin data list
+        :rtype: list
+        """
         target_url = self._base_url.format('', self._tag) if page == 1 else self._base_url.format(page, self._tag)
 
         resp = urlopen(target_url)
@@ -47,10 +65,28 @@ class CoinAPI:
         return coins
 
     def get_by_marketcap_rank(self, rank):
+        """
+        Returns coin data based market cap rank.
+
+        :param rank: rank to inquire
+        :type rank: int
+
+        :return: Coin data dict
+        :rtype: dict
+        """
         page = int(rank / 100 + 1)
         return [item for item in self.get_by_page(page) if item['rank'] == rank][0]
 
     def get_by_name(self, name):
+        """
+        Returns coin data based name.
+
+        :param name: name to inquire
+        :type name: str
+
+        :return: Coin data dict
+        :rtype: dict
+        """
         for page in range(1, 12):
             items = self.get_by_page(page)
             for item in items:
