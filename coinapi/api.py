@@ -47,12 +47,12 @@ class CoinAPI:
         return coins
 
     def get_by_marketcap_rank(self, rank):
-        # page = rank / 100 + 1
-        pass
+        page = int(rank / 100 + 1)
+        return [item for item in self.get_by_page(page) if item['rank'] == rank][0]
 
     def get_by_name(self, name):
         pass
 
 
 if __name__ == '__main__':
-    CoinAPI().get_by_page(1)
+    print(CoinAPI().get_by_marketcap_rank(103))
